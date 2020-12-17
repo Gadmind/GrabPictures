@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daop.basic.demo.mapper.ArticleMapper">
+    <resultMap id="BaseResultMap" type="com.daop.basic.demo.entity.Article">
+        <!--TableFieldsMappingList-->
+        <id column="article_id" jdbcType="BIGINT" property="articleId"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="article_url" jdbcType="VARCHAR" property="articleUrl"/>
+        <result column="last_mod_date" jdbcType="TIMESTAMP" property="lastModDate"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--TableFieldsList-->
+        article_id, title, article_url, last_mod_date, create_time
+    </sql>
+
+    <insert id="insertBatch">
+        insert into article(<include refid="Base_Column_List"/>)
+        values
+        <foreach collection="articles" item="article" separator="," close=";">
+            (#{article.articleId},#{article.title},#{article.articleUrl},#{article.lastModDate},#{article.createDate})
+        </foreach>
+    </insert>
+</mapper>

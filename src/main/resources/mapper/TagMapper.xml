@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daop.basic.demo.mapper.TagMapper">
+    <resultMap id="BaseResultMap" type="com.daop.basic.demo.entity.Tag">
+        <!--TableFieldsMappingList-->
+        <id column="tag_id" jdbcType="BIGINT" property="tagId"/>
+        <result column="tag_name" jdbcType="VARCHAR" property="tagName"/>
+        <result column="tag_ref" jdbcType="VARCHAR" property="tagRef"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--TableFieldsList-->
+    </sql>
+
+    <insert id="insertBatch">
+        insert into tag(tag_name, tag_ref)
+        values
+        <foreach collection="tags" item="tag" separator="," close=";">
+            (#{tag.tagName},#{tag.tagRef})
+        </foreach>
+    </insert>
+</mapper>
